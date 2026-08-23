@@ -5,7 +5,7 @@ const NAV = [
   { label: "Услуги", href: "#services" },
   { label: "Города", href: "#cities" },
   { label: "Как это работает", href: "#how" },
-  { label: "Блог", href: "#blog" },
+  { label: "Блог", href: "/blog" },
 ];
 
 export default function Footer() {
