@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+  }
+
+  /* Скрываем sticky-кнопку при печати */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-cat-yellow px-7 py-4 font-heading text-base font-extrabold uppercase tracking-wide text-cat-black transition-all duration-300 hover:scale-[1.03] hover:shadow-yellow-glow focus:outline-none focus:ring-4 focus:ring-cat-yellow/40;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border-2 border-cat-yellow bg-cat-black px-6 py-3 font-heading text-sm font-bold uppercase tracking-wide text-cat-yellow transition-all duration-300 hover:scale-[1.03] hover:bg-cat-yellow hover:text-cat-black focus:outline-none focus:ring-4 focus:ring-cat-yellow/40;
+  }
+
+  .section-title {
+    @apply font-heading text-3xl font-extrabold uppercase tracking-tight sm:text-4xl lg:text-5xl;
+  }
+
+  .section-subtitle {
+    @apply mt-3 font-body text-lg font-light text-cat-gray/80;
+  }
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffc400;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd633;
+}
+
+/* Параллакс-слой */
+.parallax-bg {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Появление при скролле */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Адаптивная карта */
+.map-frame-mobile iframe {
+  height: 300px;
+}
+@media (min-width: 768px) {
+  .map-frame-mobile iframe {
+    height: 400px;
+  }
+}
+
+/* Мобильные правки */
+@media (max-width: 767px) {
+  .section-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  .section-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Убираем backdrop-filter на мобильных для производительности */
+@media (max-width: 767px) {
+  .backdrop-blur,
+  .backdrop-blur-sm {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Формы */
+.form-label {
+  @apply mb-1.5 block font-heading text-xs font-bold uppercase tracking-wide text-cat-yellow;
+}
+.form-input {
+  @apply w-full rounded-lg border border-white/15 bg-cat-gray/60 px-4 py-3 font-body text-white placeholder-white/40 outline-none transition-colors focus:border-cat-yellow focus:bg-cat-gray;
+}
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+.form-input option {
+  background: #1a1a1a;
+  color: #fff;
+}
+.form-error {
+  @apply mt-1 font-body text-xs text-red-400;
+}
