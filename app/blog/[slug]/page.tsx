@@ -72,9 +72,11 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                     </h2>
                     <div className="mt-4 space-y-4">
                       {section.paragraphs.map((p, j) => (
-                        <p key={j} className="font-body text-base leading-relaxed text-cat-gray sm:text-lg">
-                          {p}
-                        </p>
+                        <p
+                          key={j}
+                          className="font-body text-base leading-relaxed text-cat-gray sm:text-lg [&_a]:text-cat-black [&_a]:underline [&_a]:decoration-cat-yellow [&_a]:decoration-2 [&_a]:underline-offset-2 [&_a:hover]:decoration-cat-black"
+                          dangerouslySetInnerHTML={{ __html: p }}
+                        />
                       ))}
                     </div>
                   </section>
