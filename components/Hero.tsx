@@ -1,35 +1,88 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { SERVICE } from "@/lib/constants";
 import Icon from "./Icons";
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [offset, setOffset] = useState(0);
+
   const scrollToForm = (e: React.MouseEvent) => {
     e.preventDefault();
     document.getElementById("form")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Лёгкий параллакс: видео движется медленнее скролла.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        // Скролл внутри секции: 0, когда секция в верхней части.
+        const scrolled = -rect.top;
+        // Видео «отстаёт» на 30% от скролла.
+        setOffset(scrolled * 0.3);
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="top"
       className="relative flex min-h-[100svh] items-center overflow-hidden bg-cat-black pt-16"
     >
-      {/* Фоновая графика — сетка/градиент */}
+      {/* Базовый градиент (виден, пока видео не загрузилось) */}
       <div
-        className="absolute inset-0 -z-10 bg-gradient-to-br from-cat-gray via-cat-black to-cat-black"
+        className="absolute inset-0 z-0 bg-gradient-to-br from-cat-gray via-cat-black to-cat-black"
         aria-hidden="true"
       />
+
+      {/* Видеофон с параллаксом */}
       <div
-        className="absolute inset-0 -z-10 opacity-[0.07]"
+        className="absolute -top-[10%] left-0 z-0 h-[120%] w-full overflow-hidden"
+        aria-hidden="true"
+        style={{ transform: `translate3d(0, ${offset}px, 0)` }}
+      >
+        <video
+          className="h-full w-full object-cover"
+          src="/videos/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+      </div>
+
+      {/* Затемнение поверх видео */}
+      <div
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/80 via-black/55 to-black/85"
+        aria-hidden="true"
+      />
+
+      {/* Лёгкая сетка для текстуры */}
+      <div
+        className="absolute inset-0 z-[1] opacity-[0.05]"
         style={{
           backgroundImage:
             "linear-gradient(#FFC400 1px, transparent 1px), linear-gradient(90deg, #FFC400 1px, transparent 1px)",
           backgroundSize: "48px 48px",
         }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute -right-32 top-1/4 -z-10 h-96 w-96 rounded-full bg-cat-yellow/15 blur-3xl"
         aria-hidden="true"
       />
 
