@@ -42,6 +42,9 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: true,
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

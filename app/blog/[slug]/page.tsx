@@ -53,9 +53,10 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             <h1 className="mt-4 max-w-3xl font-heading text-3xl font-black uppercase leading-[1.1] text-white sm:text-4xl lg:text-5xl">
               {article.title}
             </h1>
-            <p className="mt-5 max-w-2xl font-body text-lg text-white/80">
-              {article.intro}
-            </p>
+            <p
+              className="mt-5 max-w-2xl font-body text-lg text-white/80 [&_a]:text-white [&_a]:underline [&_a]:decoration-cat-yellow [&_a]:decoration-2 [&_a]:underline-offset-2 [&_a:hover]:text-cat-yellow"
+              dangerouslySetInnerHTML={{ __html: article.intro }}
+            />
           </div>
         </section>
 
@@ -146,9 +147,10 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                           className="h-5 w-5 text-cat-yellow transition-transform group-open:rotate-180"
                         />
                       </summary>
-                      <p className="mt-3 font-body text-base leading-relaxed text-cat-gray">
-                        {item.a}
-                      </p>
+                      <p
+                        className="mt-3 font-body text-base leading-relaxed text-cat-gray [&_a]:text-cat-black [&_a]:underline [&_a]:decoration-cat-yellow [&_a]:decoration-2 [&_a]:underline-offset-2 [&_a:hover]:decoration-cat-black"
+                        dangerouslySetInnerHTML={{ __html: item.a }}
+                      />
                     </details>
                   ))}
                 </div>
