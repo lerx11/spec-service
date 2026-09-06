@@ -9,6 +9,9 @@ export const metadata = {
   title: "Блог о спецтехнике — статьи, цены и нюансы аренды",
   description:
     "Разбираем задачи, цены и нюансы аренды спецтехники: манипулятор, экскаватор-погрузчик, эвакуатор, вывоз мусора и демонтаж.",
+  alternates: {
+    canonical: "https://spectehnika.netlify.app/blog",
+  },
 };
 
 export default function BlogPage() {

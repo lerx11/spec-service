@@ -42,6 +42,9 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: true,
   },
+  alternates: {
+    canonical: "https://spectehnika.netlify.app/",
+  },
   icons: {
     icon: "/favicon.ico",
   },

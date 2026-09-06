@@ -17,6 +17,9 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   return {
     title: `${article.title} — блог о спецтехнике`,
     description: article.excerpt,
+    alternates: {
+      canonical: `https://spectehnika.netlify.app/blog/${params.slug}`,
+    },
   };
 }
 
