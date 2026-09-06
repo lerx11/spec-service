@@ -26,9 +26,7 @@ export default function Hero() {
         const el = sectionRef.current;
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        // Скролл внутри секции: 0, когда секция в верхней части.
         const scrolled = -rect.top;
-        // Видео «отстаёт» на 30% от скролла.
         setOffset(scrolled * 0.3);
       });
     };
